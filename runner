@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# ###############
+# Git
+# #####
+function git.pre_commit.init() {
+  pre-commit install
+  pre-commit install --hook-type pre-push
+  pre-commit install --hook-type commit-msg
+}
+
+function git.pre_commit.run_for_all() {
+  pre-commit run --all-files;
+}
+
+# ###############
+# Requirements
+# #####
+function requirements.compile() {
+  pip install -r requirements/prerequisite/pip-tools.txt
+  pip-compile requirements/raw/prod.in -o requirements/compiled/prod.txt
+  pip-compile requirements/raw/dev.in -o requirements/compiled/dev.txt
+}
+
+function requirements.install() {
+  pip install -r requirements/prerequisite/pip-tools.txt
+  pip-sync requirements/compiled/dev.txt
+}
+
+# ###############
+# Django gRPC
+# #####
+function _django_grpc.docker_compose() {
+  docker compose -f docker-compose.base.yml -f docker-compose.dev.yml $*
+}
+
+function django_grpc.runserver() {
+  _django_grpc.docker_compose up
+}
+
+function django_grpc.makemigrations() {
+  _django_grpc.docker_compose run sh -c "/wait && python manage.py makemigrations"
+}
+function django_grpc.migrate() {
+  _django_grpc.docker_compose run sh -c "/wait && python manage.py migrate"
+}
+
+# ###############
+# Runner (should be at the end of the file)
+# #####
+eval "${1}" "${@:2}"
