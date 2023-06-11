@@ -28,21 +28,36 @@ function requirements.install() {
 }
 
 # ###############
-# Django gRPC
+# Docker
 # #####
-function _django_grpc.docker_compose() {
-  docker compose -f docker-compose.base.yml -f docker-compose.dev.yml $*
+function _docker.compose_base() {
+  docker compose -f docker-compose.base.yml -f docker-compose.dev.yml "$@"
 }
 
+function docker.destroy() {
+  _docker.compose_base down -v
+}
+
+# ###############
+# Postgres
+# #####
+function postgres.shell() {
+  _docker.compose_base up -d postgres
+  _docker.compose_base exec postgres /bin/bash
+}
+
+# ###############
+# Django gRPC
+# #####
 function django_grpc.runserver() {
-  _django_grpc.docker_compose up
+  _docker.compose_base up
 }
 
 function django_grpc.makemigrations() {
-  _django_grpc.docker_compose run sh -c "/wait && python manage.py makemigrations"
+  _docker.compose_base run --rm django_grpc sh -c "/wait && python manage.py makemigrations"
 }
 function django_grpc.migrate() {
-  _django_grpc.docker_compose run sh -c "/wait && python manage.py migrate"
+  _docker.compose_base run --rm django_grpc sh -c "/wait && python manage.py migrate"
 }
 
 # ###############
