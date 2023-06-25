@@ -22,42 +22,81 @@ function requirements.compile() {
   pip-compile requirements/raw/dev.in -o requirements/compiled/dev.txt
 }
 
-function requirements.install() {
+function requirements.install.dev() {
   pip install -r requirements/prerequisite/pip-tools.txt
   pip-sync requirements/compiled/dev.txt
+}
+
+function requirements.install.prod() {
+  pip install -r requirements/prerequisite/pip-tools.txt
+  pip-sync requirements/compiled/prod.txt
 }
 
 # ###############
 # Docker
 # #####
-function _docker.compose_base() {
-  docker compose -f docker-compose.base.yml -f docker-compose.dev.yml "$@"
+function docker.build() {
+  docker compose build
 }
 
 function docker.destroy() {
-  _docker.compose_base down -v
+  docker compose down -v
+}
+
+function docker.down() {
+  docker compose down
+}
+
+function docker.stop() {
+  docker compose stop
 }
 
 # ###############
 # Postgres
 # #####
 function postgres.shell() {
-  _docker.compose_base up -d postgres
-  _docker.compose_base exec postgres /bin/bash
+  docker compose up -d postgres
+  docker compose exec postgres /bin/bash
 }
 
 # ###############
-# Django gRPC
+# Django gRPC (The main application)
 # #####
-function django_grpc.runserver() {
-  _docker.compose_base up
+function app.shell() {
+  docker compose up -d django_grpc
+  docker compose exec django_grpc /bin/bash
 }
 
-function django_grpc.makemigrations() {
-  _docker.compose_base run --rm django_grpc sh -c "/wait && python manage.py makemigrations"
+function app.runserver() {
+  docker compose up
 }
-function django_grpc.migrate() {
-  _docker.compose_base run --rm django_grpc sh -c "/wait && python manage.py migrate"
+
+function app.makemigrations() {
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py makemigrations"
+}
+
+function app.migrate() {
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py migrate"
+}
+
+function app.collectstatic() {
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py collectstatic"
+}
+
+function app.makemessages() {
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py makemessages -l en_US"
+}
+
+function app.compilemessages() {
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py compilemessages"
+}
+
+function app.createsuperuser() {
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py createsuperuser"
+}
+
+function app.provision() {
+  docker compose run --rm django_grpc sh -c "/wait && ./confs/docker_compose_scripts/django_grpc_provision.sh"
 }
 
 # ###############

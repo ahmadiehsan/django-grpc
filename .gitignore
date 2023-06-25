@@ -1,5 +1,7 @@
 # For this project
-*.env.example
+*.env
+!*.env.example
+static
 
 # IntelliJ project files
 .idea

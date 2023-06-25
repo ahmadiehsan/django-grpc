@@ -56,9 +56,8 @@ repos:
     hooks:
       - id: pylint
         args: [
-          --min-public-methods, '1',
           --disable, 'missing-module-docstring,missing-class-docstring,missing-function-docstring,import-error,fixme,duplicate-code,too-few-public-methods',
           --max-line-length, '120',
           --py-version, '3.10',
-          --ignore-patterns, '\d{4}_.*?.py',  # ignore migrations
+          --ignore-patterns, '\d{4}_.*?.py',  # ignore django migrations
         ]
