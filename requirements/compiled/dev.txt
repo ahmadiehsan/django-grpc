@@ -6,33 +6,75 @@
 #
 asgiref==3.7.2
     # via django
+attrs==23.1.0
+    # via
+    #   jsonschema
+    #   referencing
 cfgv==3.3.1
     # via pre-commit
 distlib==0.3.6
     # via virtualenv
-django==4.2.2
+django==4.2.3
+    # via
+    #   -r requirements/raw/base.in
+    #   django-addons
+    #   djangorestframework
+    #   djangorestframework-simplejwt
+    #   drf-spectacular
+django-addons @ file:///home/ehsan/projects/django_addons
     # via -r requirements/raw/base.in
-filelock==3.12.1
+djangorestframework==3.14.0
+    # via
+    #   django-addons
+    #   djangorestframework-simplejwt
+    #   drf-spectacular
+djangorestframework-simplejwt==5.2.2
+    # via django-addons
+drf-spectacular==0.26.3
+    # via django-addons
+filelock==3.12.2
     # via virtualenv
 identify==2.5.24
     # via pre-commit
+inflection==0.5.1
+    # via drf-spectacular
+jsonschema==4.18.0
+    # via drf-spectacular
+jsonschema-specifications==2023.6.1
+    # via jsonschema
 nodeenv==1.8.0
     # via pre-commit
-platformdirs==3.5.3
+platformdirs==3.8.1
     # via virtualenv
 pre-commit==2.20.0
     # via -r requirements/raw/dev.in
 psycopg2-binary==2.9.6
     # via -r requirements/raw/base.in
+pyjwt==2.7.0
+    # via djangorestframework-simplejwt
+pytz==2023.3
+    # via djangorestframework
 pyyaml==6.0
-    # via pre-commit
+    # via
+    #   drf-spectacular
+    #   pre-commit
+referencing==0.29.1
+    # via
+    #   jsonschema
+    #   jsonschema-specifications
+rpds-py==0.8.10
+    # via
+    #   jsonschema
+    #   referencing
 sqlparse==0.4.4
     # via django
 toml==0.10.2
     # via pre-commit
-typing-extensions==4.6.3
+typing-extensions==4.7.1
     # via asgiref
-virtualenv==20.23.0
+uritemplate==4.1.1
+    # via drf-spectacular
+virtualenv==20.23.1
     # via pre-commit
 
 # The following packages are considered to be unsafe in a requirements file:

@@ -1,6 +1,14 @@
 #!/bin/bash
 
 # ###############
+# Share
+# #####
+function _change_the_files_owner_to_the_current_user() {
+  echo "Changing the owner of the project files to '$USER'"
+  sudo chown -R "$USER": *
+}
+
+# ###############
 # Git
 # #####
 function git.pre_commit.init() {
@@ -69,34 +77,40 @@ function app.shell() {
 
 function app.runserver() {
   docker compose up
+  _change_the_files_owner_to_the_current_user  # For the .pyc files
 }
 
 function app.makemigrations() {
-  docker compose run --rm django_grpc sh -c "/wait && python manage.py makemigrations"
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py makemigrations $*"
+  _change_the_files_owner_to_the_current_user
 }
 
 function app.migrate() {
-  docker compose run --rm django_grpc sh -c "/wait && python manage.py migrate"
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py migrate $*"
 }
 
 function app.collectstatic() {
-  docker compose run --rm django_grpc sh -c "/wait && python manage.py collectstatic"
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py collectstatic $*"
+  _change_the_files_owner_to_the_current_user
 }
 
 function app.makemessages() {
-  docker compose run --rm django_grpc sh -c "/wait && python manage.py makemessages -l en_US"
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py makemessages $*"
+  _change_the_files_owner_to_the_current_user
 }
 
 function app.compilemessages() {
-  docker compose run --rm django_grpc sh -c "/wait && python manage.py compilemessages"
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py compilemessages $*"
+  _change_the_files_owner_to_the_current_user
 }
 
 function app.createsuperuser() {
-  docker compose run --rm django_grpc sh -c "/wait && python manage.py createsuperuser"
+  docker compose run --rm django_grpc sh -c "/wait && python manage.py createsuperuser $*"
 }
 
 function app.provision() {
   docker compose run --rm django_grpc sh -c "/wait && ./confs/docker_compose_scripts/django_grpc_provision.sh"
+  _change_the_files_owner_to_the_current_user
 }
 
 # ###############

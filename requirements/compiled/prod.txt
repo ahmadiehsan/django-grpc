@@ -6,11 +6,53 @@
 #
 asgiref==3.7.2
     # via django
+attrs==23.1.0
+    # via
+    #   jsonschema
+    #   referencing
 django==4.2.2
+    # via
+    #   -r requirements/raw/base.in
+    #   django-addons
+    #   djangorestframework
+    #   djangorestframework-simplejwt
+    #   drf-spectacular
+django-addons @ file:///home/ehsan/projects/django_addons
     # via -r requirements/raw/base.in
+djangorestframework==3.14.0
+    # via
+    #   django-addons
+    #   djangorestframework-simplejwt
+    #   drf-spectacular
+djangorestframework-simplejwt==5.2.2
+    # via django-addons
+drf-spectacular==0.26.3
+    # via django-addons
+inflection==0.5.1
+    # via drf-spectacular
+jsonschema==4.18.0
+    # via drf-spectacular
+jsonschema-specifications==2023.6.1
+    # via jsonschema
 psycopg2-binary==2.9.6
     # via -r requirements/raw/base.in
+pyjwt==2.7.0
+    # via djangorestframework-simplejwt
+pytz==2023.3
+    # via djangorestframework
+pyyaml==6.0
+    # via drf-spectacular
+referencing==0.29.1
+    # via
+    #   jsonschema
+    #   jsonschema-specifications
+rpds-py==0.8.10
+    # via
+    #   jsonschema
+    #   referencing
 sqlparse==0.4.4
     # via django
 typing-extensions==4.6.3
     # via asgiref
+uritemplate==4.1.1
+    # via drf-spectacular
