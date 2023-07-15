@@ -12,25 +12,25 @@ vim confs/docker_compose_envs/postgres.env
 cp confs/docker_compose_envs/django_grpc.env.example confs/docker_compose_envs/django_grpc.env
 vim confs/docker_compose_envs/django_grpc.env
 
-./runner docker.build
-./runner app.provision
-./runner app.runserver
+./run docker.build
+./run app.provision
+./run app.runserver
 ```
 
 ## Available Commands
 
-- `./runner git.pre_commit.init`
-- `./runner git.pre_commit.run_for_all`
-- `./runner requirements.compile`
-- `./runner requirements.install.dev`
-- `./runner requirements.install.prod`
-- `./runner docker.destroy`
-- `./runner app.runserver`
-- `./runner app.makemigrations`
-- `./runner app.migrate`
-- `./runner app.collectstatic`
-- `./runner app.compilemessages`
-- `./runner app.createsuperuser`
-- `./runner app.provision`
-- `./runner makemigrations`
-- `./runner postgres.shell`
+- `./run pre_commit.init`
+- `./run pre_commit.run_for_all`
+- `./run requirements.compile`
+- `./run requirements.install.dev`
+- `./run requirements.install.prod`
+- `./run docker.destroy`
+- `./run app.runserver`
+- `./run app.makemigrations`
+- `./run app.migrate`
+- `./run app.collectstatic`
+- `./run app.compilemessages`
+- `./run app.createsuperuser`
+- `./run app.provision`
+- `./run makemigrations`
+- `./run postgres.shell`

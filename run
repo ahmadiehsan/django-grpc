@@ -11,13 +11,13 @@ function _change_the_files_owner_to_the_current_user() {
 # ###############
 # Git
 # #####
-function git.pre_commit.init() {
+function pre_commit.init() {
   pre-commit install
   pre-commit install --hook-type pre-push
   pre-commit install --hook-type commit-msg
 }
 
-function git.pre_commit.run_for_all() {
+function pre_commit.run_for_all() {
   pre-commit run --all-files;
 }
 
@@ -68,7 +68,7 @@ function postgres.shell() {
 }
 
 # ###############
-# Django gRPC (The main application)
+# App (the main application)
 # #####
 function app.shell() {
   docker compose up -d django_grpc
@@ -114,6 +114,6 @@ function app.provision() {
 }
 
 # ###############
-# Runner (should be at the end of the file)
+# Run (should be at the end of the file)
 # #####
 eval "${1}" "${@:2}"
