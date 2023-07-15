@@ -9,7 +9,7 @@ function _change_the_files_owner_to_the_current_user() {
 }
 
 # ###############
-# Git
+# Pre-Commit
 # #####
 function pre_commit.init() {
   pre-commit install
